@@ -1,0 +1,218 @@
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Моя визитка | Имя Фамилия</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 48px;
+            max-width: 400px;
+            width: 100%;
+            padding: 32px 24px 40px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            text-align: center;
+            backdrop-filter: blur(2px);
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            background: #0f3460;
+            border-radius: 60px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: 600;
+            color: white;
+            background-image: linear-gradient(145deg, #e94560, #533483);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #1e293b;
+        }
+        .title {
+            font-size: 16px;
+            color: #e94560;
+            font-weight: 600;
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+        .company {
+            font-size: 15px;
+            color: #334155;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: #f8fafc;
+            padding: 14px 20px;
+            border-radius: 60px;
+            margin-bottom: 12px;
+            text-decoration: none;
+            color: #1e293b;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        .contact-item:active {
+            background: #e2e8f0;
+            transform: scale(0.97);
+        }
+        .icon {
+            font-size: 22px;
+            min-width: 32px;
+        }
+        .save-btn {
+            background: linear-gradient(135deg, #e94560, #533483);
+            border: none;
+            width: 100%;
+            padding: 18px 20px;
+            border-radius: 60px;
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 10px 20px -5px rgba(233,69,96,0.4);
+        }
+        .save-btn:active {
+            transform: scale(0.97);
+            box-shadow: 0 4px 12px rgba(233,69,96,0.4);
+        }
+        .footer {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 24px;
+        }
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <!-- КРУГЛОЕ ФОТО/ЛОГОТИП -->
+        <div class="avatar">
+            <!-- Вместо эмодзи поставьте своё фото, заменив <div> на <img src="ваша_ссылка.jpg" class="avatar"> -->
+            👤
+        </div>
+
+        <!-- ИМЯ И ДОЛЖНОСТЬ (ЗАМЕНИТЕ НА СВОИ) -->
+        <h1>Иван Петров</h1>
+        <div class="title">Руководитель отдела продаж</div>
+        <div class="company">ООО «Рекламные Технологии»</div>
+
+        <!-- ТЕЛЕФОН (кликабельный) -->
+        <a href="tel:+79123456789" class="contact-item">
+            <span class="icon">📞</span>
+            <span>+7 (912) 345-67-89</span>
+        </a>
+
+        <!-- EMAIL -->
+        <a href="mailto:ivan@example.ru" class="contact-item">
+            <span class="icon">✉️</span>
+            <span>ivan@example.ru</span>
+        </a>
+
+        <!-- WEBSITE -->
+        <a href="https://example.ru" class="contact-item" target="_blank">
+            <span class="icon">🌐</span>
+            <span>example.ru</span>
+        </a>
+
+        <!-- WhatsApp -->
+        <a href="https://wa.me/79123456789" class="contact-item" target="_blank">
+            <span class="icon">💬</span>
+            <span>WhatsApp</span>
+        </a>
+
+        <!-- КНОПКА СОХРАНЕНИЯ В АДРЕСНУЮ КНИГУ -->
+        <button class="save-btn" id="saveContactBtn">
+            <span>📇</span> Сохранить в адресную книгу
+        </button>
+        <div class="footer">
+            Нажмите кнопку → разрешите добавление контакта
+        </div>
+    </div>
+
+    <script>
+        // ДАННЫЕ ДЛЯ vCard (ЗАМЕНИТЕ НА СВОИ)
+        const contactData = {
+            fullName: "Иван Петров",
+            phone: "+79123456789",
+            email: "ivan@example.ru",
+            company: "ООО «Рекламные Технологии»",
+            jobTitle: "Руководитель отдела продаж",
+            website: "https://example.ru"
+        };
+
+        // Функция создания vCard (контактный файл)
+        function generateVCard() {
+            return `BEGIN:VCARD
+VERSION:3.0
+FN:${contactData.fullName}
+ORG:${contactData.company}
+TITLE:${contactData.jobTitle}
+TEL;TYPE=CELL,WORK:${contactData.phone}
+EMAIL;TYPE=WORK:${contactData.email}
+URL:${contactData.website}
+REV:${new Date().toISOString()}
+END:VCARD`;
+        }
+
+        // Обработчик кнопки
+        document.getElementById("saveContactBtn").addEventListener("click", function() {
+            const vcardString = generateVCard();
+            const blob = new Blob([vcardString], { type: "text/vcard" });
+            const url = URL.createObjectURL(blob);
+            
+            // Создаём ссылку и "кликаем" по ней – это скачает .vcf
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "contact.vcf";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            // Доп. подсказка для пользователя
+            setTimeout(() => {
+                alert("Файл контакта загружен. Откройте его, чтобы добавить меня в адресную книгу.");
+            }, 100);
+        });
+    </script>
+</body>
+</html>
+```
+
+---
